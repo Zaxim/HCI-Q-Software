@@ -3,5 +3,6 @@ cache/**
 databases/**
 errors/**
 sessions/**
+env/**
 *˜
 *.pyc
