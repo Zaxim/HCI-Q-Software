@@ -1,0 +1,30 @@
+{{extend 'layout.html'}}
+
+{{ block head}}
+<link href="{{=URL('static', '/css/select2.css')}}" rel="stylesheet" type="text/css" />
+<script src="{{=URL('static','/js/select2.min.js')}}"></script>
+{{end}}
+
+{{=A(T("Back"), _href=URL('admin','studies'), _class='btn')}}
+
+<h3>{{=T('Study Details')}}</h3>
+{{=study_form}}
+
+<h3>{{=T('Study Participants')}}</h3>
+<table>
+	{{for participant in participants:}}
+	<tr>
+		<td>{{=A(participant.participant_alias, _href=URL('participant', args=participant.id))}}</td>
+	</tr>
+	{{pass}}
+</table>
+
+
+<h3>{{=T('Add study participants')}}</h3>
+{{=add_user_form}}
+
+<script type="text/javascript">
+	$(document).ready(function() { 
+ 		$("#no_table_Users").select2({placeholder: "Add a User", allowClear: true, width: 'resolve'});
+	});
+</script>

@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+<h2>{{=T('Studies')}}</h2>
+{{=A(T("Add Study"), _href=URL('admin','add_study'), _class='btn')}}
+<table>
+	{{for study in studies:}}
+	<tr>
+		<td>{{=A(study.name, _href=URL('study', args=study.id))}}</td>
+	</tr>
+	{{pass}}
+</table>
