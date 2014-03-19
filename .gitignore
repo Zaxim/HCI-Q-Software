@@ -6,3 +6,5 @@ sessions/**
 env/**
 *˜
 *.pyc
+models/00_settings.py
+

@@ -53,24 +53,6 @@ def add_study():
 		response.flash=T('Form has Errors')
 	return locals()
 
-#@auth.requires_membership('admin')
-def add_users_study():
-	study_id = db.study(request.args(0)) or redirect (URL('studies'))
-	#users_and_studies = db((db.auth_user.id==db.user_add.auth_user) & (db.study.id==db.user_add.study))
-	#users = users_and_studies(db.study.id!=study_id.id).select()
-	left_join = db.user_add.on(db.auth_user.id==db.user_add.auth_user)
-	#rows = db().select(db.auth_user.ALL, db.user_add.ALL,left=left_join))
-	rows = db((db.user_add.id == None) | (db.user_add.study != study_id)).select(db.auth_user.ALL, db.user_add.ALL,left=left_join)
-	last = db._lastsql
-	return locals()
-
-#@auth.requires_membership('admin')
-def add_user_study():
-	study_id = db.study(request.args(0)) or redirect (URL('studies'))
-	user_id = db.user(request.args(1)) or redirect (URL('studies'))
-	db.user_add.insert(study=study_id.id, auth_user=user_id.id)
-	response.flash=T('User added to study')
-	return
 
 #@auth.requires_membership('admin')
 def participant():
@@ -83,6 +65,29 @@ def participant():
 		response.flash=T('Form Accepted')
 		redirect(URL('admin','study', args=participant_id.study))
 	elif participant_form.errors:
+		response.flash=T('Form has Errors')
+	return locals()
+
+def invite_users():
+	invalid_emails=[]
+	new_users=[]
+	invite_user_form=SQLFORM.factory(Field('Emails'))
+	auth_stuff = []
+	if invite_user_form.process().accepted:
+		email_list = invite_user_form.vars.Emails.split(',')
+		for e in email_list:
+			em, valid = IS_EMAIL() (e)
+			if valid is not None:
+				invalid_emails.append(em)
+			else:
+				if db(db.auth_user.email != em).select():
+					password = db.auth_user.password.requires[0](auth.random_password)[0]
+					auth.get_or_create_user({'email':em, 'password':password})
+					new_users.append(em)
+		
+		session.flash=T('Study Updated')
+
+	elif invite_user_form.errors:
 		response.flash=T('Form has Errors')
 	return locals()
 

@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+
+{{ block head}}
+<link href="{{=URL('static', '/css/select2.css')}}" rel="stylesheet" type="text/css" />
+<script src="{{=URL('static','/js/select2.min.js')}}"></script>
+{{end}}
+
+<h3>{{=T('Invite study participants')}}</h3>
+{{=invite_user_form}}
+{{if len(invalid_emails) > 0:}}
+<h3>{{=T('Invalid emails')}}</h3>
+{{=invalid_emails}}
+{{pass}}
+
+{{=auth_stuff}}
+
+{{=response.toolbar()}}
+
+<script type="text/javascript">
+	$(document).ready(function() { 
+ 		$("#no_table_Emails").select2({placeholder: "Invite a user", tags:[], tokenSeparators: [",", " "], allowClear: true, width: 'resolve'});
+	});
+</script>
