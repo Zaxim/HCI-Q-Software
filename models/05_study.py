@@ -6,7 +6,7 @@ db.define_table('study',
 	format='%(name)s')
 
 db.define_table('participant',
-	Field('participant_alias'),
+	Field('participant_alias', 'reference participant_alias', unique=True),
 	Field('auth_user', 'reference auth_user'),
 	Field('study', 'reference study'),
 	Field('isConsented', 'boolean', default=False),

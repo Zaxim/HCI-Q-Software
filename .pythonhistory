@@ -1,0 +1,13 @@
+db =  DAL('sqlite://storage.sqlite')
+db.tables
+db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
+db.tables
+exit
+db
+db.tables
+for tb in db.tables:
+db(tb).drop()
+for tb in db.tables:
+   db(tb).drop()
+for tb in db.tables:
+   db[tb].drop()

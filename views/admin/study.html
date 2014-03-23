@@ -14,7 +14,7 @@
 <table>
 	{{for participant in participants:}}
 	<tr>
-		<td>{{=A(participant.participant_alias, _href=URL('participant', args=participant.id))}}</td>
+		<td>{{=A(participant.participant_alias.alias_name, _href=URL('participant', args=participant.id))}}</td>
 	</tr>
 	{{pass}}
 </table>
@@ -22,10 +22,22 @@
 
 <h3>{{=T('Add study participants')}}</h3>
 {{=add_user_form}}
+
+<h3>{{=T('Invite study participants')}}</h3>
+{{=invite_user_form}}
+{{if len(invalid_emails) > 0:}}
+<h3>{{=T('Invalid emails')}}</h3>
+{{=invalid_emails}}
+{{pass}}
+
+{{=auth_stuff}}
+{{=participants}}
+{{=p_list}}
 {{=response.toolbar()}}
 
 <script type="text/javascript">
 	$(document).ready(function() { 
- 		$("#no_table_Users").select2({placeholder: "Add a User", allowClear: true, width: 'resolve'});
+ 		$("#no_table_add_user_Users").select2({placeholder: "Add a User", allowClear: true, width: 'resolve'});
+ 		$("#no_table_invite_user_Emails").select2({placeholder: "Invite a user", tags:[], tokenSeparators: [",", " "], allowClear: true, width: 'resolve'});
 	});
 </script>
