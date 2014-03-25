@@ -45,7 +45,7 @@ def study():
 	add_user_form=SQLFORM.factory(Field('Users',requires=IS_IN_SET(user_list_id, labels=user_list_label, multiple=True)), table_name="no_table_add_user")
 	if add_user_form.process().accepted:
 		for user_id in add_user_form.vars.Users:
-			db.participant.insert(participant_alias=get_random_alias(), auth_user=user_id, study=study_id)
+			db.participant.insert(participant_alias=get_random_alias(), auth_user=user_id, study=study_id, study_stage='Consenting')
 		redirect(URL('study', args=study_id.id), client_side=True)
 		session.flash=T('Study Updated')
 	elif add_user_form.errors:
@@ -71,7 +71,7 @@ def study():
 					user_id = auth.get_or_create_user({'email':em, 'password':password})
 					new_users.append(user_id)
 				if user_id not in p_list:
-					db.participant.insert(participant_alias=get_random_alias(), auth_user=user_id, study=study_id)
+					db.participant.insert(participant_alias=get_random_alias(), auth_user=user_id, study=study_id, study_stage='Consenting')
 		session.flash=T('Study Updated\nThe following emails were not added\n' + str(invalid_emails))
 		redirect(URL('study', args=study_id.id), client_side=True)
 	elif invite_user_form.errors:
@@ -84,6 +84,7 @@ def add_study():
 	study_form = SQLFORM(db.study)
 	study_form.add_button("Cancel", URL('admin','studies'))
 	if study_form.process().accepted:
+		db.auth_group.insert(role=study_form.vars.name)
 		redirect(URL('study',args=study_form.vars.id))
 	elif study_form.errors:
 		response.flash=T('Form has Errors')

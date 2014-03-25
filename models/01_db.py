@@ -45,6 +45,7 @@ auth = Auth(db)
 crud, service, plugins = Crud(db), Service(), PluginManager()
 
 ## create all tables needed by auth if not custom tables
+#auth.settings.extra_fields['auth_group'] = [Field('study_id', 'integer')] #Foreign key to future defined study table
 auth.define_tables(username=False, signature=False)
 
 ## configure email

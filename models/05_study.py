@@ -3,13 +3,14 @@
 db.define_table('study',
 	Field('name', notnull=True),
 	Field('short_description', 'text'),
+	Field('study_stage', requires=IS_IN_SET(stages)),
 	format='%(name)s')
 
 db.define_table('participant',
 	Field('participant_alias', 'reference participant_alias', unique=True),
 	Field('auth_user', 'reference auth_user'),
 	Field('study', 'reference study'),
-	Field('isConsented', 'boolean', default=False),
+	Field('study_stage', requires=IS_IN_SET(stages)),
 	format='%(participant_alias)s'
 	)
 
@@ -28,3 +29,4 @@ db.define_table('q_answer',
 	Field('participant', 'reference participant'),
 	Field('ranking', 'integer')
 	)
+
