@@ -48,6 +48,11 @@ crud, service, plugins = Crud(db), Service(), PluginManager()
 #auth.settings.extra_fields['auth_group'] = [Field('study_id', 'integer')] #Foreign key to future defined study table
 auth.define_tables(username=False, signature=False)
 
+## create CKEditor table
+from plugin_ckeditor import CKEditor
+ckeditor = CKEditor(db)
+ckeditor.define_tables()
+
 ## configure email
 mail = auth.settings.mailer
 mail.settings.server = configz['server']

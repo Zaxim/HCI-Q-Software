@@ -2,8 +2,11 @@
 
 db.define_table('study',
 	Field('name', notnull=True),
-	Field('short_description', 'text'),
-	Field('study_stage', requires=IS_IN_SET(stages)),
+	Field('description', 'text', widget=ckeditor.widget),
+	Field('study_stage', requires=IS_IN_SET(stages), default='Initial'),
+	Field('consent_form', 'text', widget=ckeditor.widget),
+	Field('qstatement_prompt', 'text'),
+	Field('num_questions', 'integer', requires=IS_INT_IN_RANGE(0,501)),
 	format='%(name)s')
 
 db.define_table('participant',
@@ -15,18 +18,18 @@ db.define_table('participant',
 	)
 
 db.define_table('qstatement',
-	Field('name', notnull=True),
 	Field('participant', 'reference participant'),
 	Field('study', 'reference study'),
-	Field('short_description', 'text'),
-	Field('long_description', 'text'),
-	Field('isShow', 'boolean', default=True),
-	Field('modified', 'datetime'),
-	format='%(name)s')
+	Field('description', 'text', notnull=True),
+	Field('modified', 'datetime', default=request.utcnow, update=request.utcnow),
+	format='%(description)s')
 
 db.define_table('q_answer',
-	Field('qstatement' 'reference qstatement'),
+	Field('qstatement', 'reference qstatement'),
 	Field('participant', 'reference participant'),
-	Field('ranking', 'integer')
+	Field('study', 'reference study'),
+	Field('ranking', 'integer'),
+	Field('box', requires=IS_IN_SET([None, 'Disagree', 'Neutral', 'Agree'])),
+	format='%(ranking)s'
 	)
 

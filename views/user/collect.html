@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+
+{{
+if is_consent:
+	=XML(consent_text)
+	=cform
+	pass
+else:
+	=T('An error has occured, please notify the administrators')
+	pass
+}}

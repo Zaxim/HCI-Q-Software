@@ -30,10 +30,9 @@
 {{=invalid_emails}}
 {{pass}}
 
-{{=auth_stuff}}
-{{=participants}}
-{{=p_list}}
-{{=response.toolbar()}}
+
+{{=A(T("View Q Statements"), _href=URL('admin','modify_qstatements', args=request.args(0)), _class='btn')}}
+{{#=response.toolbar()}}
 
 <script type="text/javascript">
 	$(document).ready(function() { 

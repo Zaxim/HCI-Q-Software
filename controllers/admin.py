@@ -1,7 +1,7 @@
 
 #Uncomment in production
 #if not auth.has_membership('admin'):
-	#redirect(auth.settings.login_url)
+#	redirect(auth.settings.login_url)
 
 
 def index():
@@ -101,6 +101,13 @@ def participant():
 		response.flash=T('Form Accepted')
 	elif participant_form.errors:
 		response.flash=T('Form has Errors')
+	return locals()
+
+def modify_qstatements():
+	study = db.study(request.args(0)) or redirect (URL('studies'))
+	query = (db.qstatement.study == study)
+	grid = SQLFORM.grid(query, args=[study.id])
+	sql = db._lastsql
 	return locals()
 
 

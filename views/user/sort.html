@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+
+{{if len(unboxed) > 0:}}
+{{=qstatement.description}}
+{{=box_form}}
+{{elif len(unsorted) > 0:}}
+{{=T('Testing')}}
+{{pass}}
+{{=sql}}
+{{=response.toolbar()}}

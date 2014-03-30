@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+
+{{=A(T("Back"), _href=URL('user','index'), _class='btn')}}
+
+<h2>{{=study.name}}</h2>
+{{=XML(study.description)}}
+{{=A(T("Continue Study"), _href=URL('user','collect', args=study.id), _class='btn')}}
+
+<div id="consent" style="visibility": hidden><h3>Consent Form</h3>{{=XML(study.consent_form)}}</div>
+<button class="button" onclick="$('#consent').toggle(300);">{{=XML('Show/Hide Consent Form')}}</button>
+
+<h3>{{=T('Alias')}}</h3>
+<h4>{{=A(participant.participant_alias.alias_name, _href='http://starwars.wikia.com/wiki/'+participant.participant_alias.alias_name, _target='_blank')}}</h4>
+{{=change_study_alias}}
+{{=current_gender}}
+
+
