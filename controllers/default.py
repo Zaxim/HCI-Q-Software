@@ -18,7 +18,7 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Welcome to web2py!")
+    response.flash = T("Welcome to HCI-Q Software!!")
     return dict(message=T('Hello World'))
 
 
@@ -74,3 +74,7 @@ def data():
       LOAD('default','data.load',args='tables',ajax=True,user_signature=True)
     """
     return dict(form=crud())
+
+def contact():
+    contact_text = T("If you have any questions or concerns, please email us at...")
+    return locals()

@@ -1,5 +1,11 @@
 {{extend 'layout.html'}}
-{{=DIV(prompt)}}
+{{=A(T("Return to studies"), _href=URL('user','index'), _class='btn')}}
+<p>
+{{=T('Statement number: ')}} {{=len(qstatements)+1}} / {{=study.num_questions}}
+
+{{=DIV(T('Please submit an answer based on the following prompt.'))}}
+<p>
+{{=DIV(qprompt.description)}}
 {{=f}}
 
 {{pass}}

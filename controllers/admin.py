@@ -1,4 +1,4 @@
-
+ 
 #Uncomment in production
 #if not auth.has_membership('admin'):
 #	redirect(auth.settings.login_url)
@@ -28,6 +28,26 @@ def study():
 	elif study_form.errors:
 		response.flash=T('Form has Errors')
 
+	#Modify Q Statement prompts
+	qprompts = db(db.qprompt.study == study_id).select(orderby=~db.qprompt.id)
+	db.qprompt.study.default = study_id
+	study = db(db.study.id == study_id).select().first()
+	unanswered_num = study.num_questions - len(qprompts)
+	field_list = []
+	for i,q in enumerate(qprompts):
+		field_list.append(Field('prev:'+str(q.id), 'text', default=q.description, label='')) #Hack to add qprompt ID to Field
+	f = SQLFORM.factory(*field_list)
+	if f.process().accepted:
+		for nam in f.vars:
+			if 'prev' in nam:
+				qprompt_id = nam.split(':')[1] #Get the id of the record
+				qprompt = db.qprompt[qprompt_id]
+				db(db.qprompt.id == qprompt_id).update(description=f.vars[nam])
+				session.flash=T('Study Updated')
+		redirect(URL('study', args=study_id.id), client_side=True)
+	elif f.errors:
+		response.flash=T('Form has Errors')
+
 	#List participants associated with a study
 	participants = db(db.participant.study==study_id.id).select()
 	p_list = []
@@ -46,8 +66,8 @@ def study():
 	if add_user_form.process().accepted:
 		for user_id in add_user_form.vars.Users:
 			db.participant.insert(participant_alias=get_random_alias(), auth_user=user_id, study=study_id, study_stage='Consenting')
-		redirect(URL('study', args=study_id.id), client_side=True)
 		session.flash=T('Study Updated')
+		redirect(URL('study', args=study_id.id), client_side=True)
 	elif add_user_form.errors:
 		response.flash=T('Form has Errors')
 
@@ -63,7 +83,7 @@ def study():
 			if valid is not None:
 				invalid_emails.append(em)
 			else:
-				user_id = db(db.auth_user.email == em).select()
+				user_id = db(db.auth_user.email == em).select().first()
 				auth_stuff=user_id
 				if not user_id:
 					auth.random_password()
@@ -84,7 +104,10 @@ def add_study():
 	study_form = SQLFORM(db.study)
 	study_form.add_button("Cancel", URL('admin','studies'))
 	if study_form.process().accepted:
+		db.qprompt.study.default = study_form.vars.id
 		db.auth_group.insert(role=study_form.vars.name)
+		for i in range(study_form.vars.num_questions):
+			db.qprompt.insert(description='')
 		redirect(URL('study',args=study_form.vars.id))
 	elif study_form.errors:
 		response.flash=T('Form has Errors')

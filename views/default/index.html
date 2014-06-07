@@ -1,27 +1,40 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-{{if 'message' in globals():}}
-<h3>{{=message}}</h3>
 
-<h4>{{=T('How did you get here?')}}</h4>
-<ol>
-  <li>{{=T('You are successfully running web2py')}}</li>
-  <li>{{=XML(T('You visited the url %s', A(request.env.path_info,_href=request.env.path_info)))}}</li>
-  <li>{{=XML(T('Which called the function %s located in the file %s',
-             (A(request.function+'()',_href='#'),
-              A('web2py/applications/%(application)s/controllers/%(controller)s.py'%request,
-               _href=URL('admin','default','peek', args=(request.application,'controllers',request.controller+'.py'))))))}}</li>
-  <li>{{=XML(T('The output of the file is a dictionary that was rendered by the view %s',
-           A('web2py/applications/%(application)s/views/%(controller)s/index.html'%request,
-           _href=URL('admin','default','peek',args=(request.application,'views',request.controller,'index.html')))))}}</li>
-  <li>{{=T('You can modify this application and adapt it to your needs')}}</li>
-</ol>
-{{elif 'content' in globals():}}
-{{=content}}
-{{else:}}
-{{=BEAUTIFY(response._vars)}}
-{{pass}}
+<h3>Home</h3>
+<p>
+Welcome to HCI-Q Software for applying HCI-Q in design.
+</p>
+<p>
+Please sign in to start your study!
+</p>
+<p>
+<h4>Links</h4>
+<ul>
+  <li>Click <a>Here</a> to learn more about Q-Methodology</li>
+  <li>Click <a>Here</a> to do a tutorial</li>
+</ul>
+<p>
+
+<p>
+HCI-Q is a design method project developed at The Information School at the University of Washington. The HCI-Q project is affiliated with the Design, Use, Build group and the Mobile Accessible Design Lab. 
+</p>
+<p>
+Contact Us:
+<ul>
+  <li>Katie O’Leary kathlo@uw.edu</li>
+  <li>Zakariya Dehlawi zaxim@uw.edu</li>
+  <li>Jacob Wobbrock wobbrock@uw.edu</li>
+</ul>
+
+<p>
+<p>
+
+{{=A(IMG(_src=URL('static','images/mad.png'), _alt='Mad Logo', _height="200", _width="200"), _href='http://depts.washington.edu/madlab')}}
+{{=A(IMG(_src=URL('static','images/dub.gif'), _alt='DUB Logo', _height="200", _width="200"), _href='http://dub.washington.edu')}}
+{{=A(IMG(_src=URL('static','images/UW-logo.png'), _alt='UW Logo', _height="100", _width="100"), _href='http://www.washington.edu')}}
+
 
 {{block right_sidebar}}
 {{=A(T("Administrative Interface"), _href=URL('admin','index'), _class='btn',
