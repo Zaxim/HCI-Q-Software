@@ -1,0 +1,1 @@
+stages=['Initial','Consenting','Soliciting','Curating','Sorting','Analysis','Presenting']

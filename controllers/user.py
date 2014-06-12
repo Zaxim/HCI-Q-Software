@@ -28,16 +28,6 @@ def study():
 	participant = db.participant((db.participant.study == request.args(0)) & (db.participant.auth_user == auth.user_id)) or redirect(URL('index'))
 	study = db.study(participant.study)
 
-	#Form to change the participant alias.
-	gender_options = ['Male', 'Female', 'Neutral']
-	change_study_alias = SQLFORM.factory(Field('Gender', requires=IS_IN_SET(gender_options), default=participant.participant_alias.gender, widget=SQLFORM.widgets.radio.widget), submit_button=T('Change your alias'))
-	if change_study_alias.process().accepted:
-		participant.update_record(participant_alias=get_random_alias(change_study_alias.vars.Gender))
-		session.flash = T('Alias Changed')
-		redirect(URL('study', args=study.id))
-	elif change_study_alias.errors:
-		response.flash = T('Form has Errors')
-	sql = db._lastsql
 	return locals()
 
 @is_in_study(request.args(0))
@@ -154,6 +144,10 @@ def edit_solicit():
 	 		field_list.append(Field('prev:'+str(q.id), 'text', default=q.description, label=prompt.description)) #Hack to add qstatement ID to Field
 	 		
 	 	f = SQLFORM.factory(*field_list)
+	 	for e in f.elements('textarea'):
+	 		e['_rows'] = 4
+	 		e['_class'] = 'text span12'
+	 	
 
 		if f.process().accepted:
 			for nam in f.vars:
@@ -165,7 +159,7 @@ def edit_solicit():
 						#Do we need to add a delete function?
 					else:
 						response.flash=T('Error in updating statements')
-			session.flash=T('Thank you for submitting your statements. Click Continue to reedit your statements')
+			session.flash=T('Thank you for submitting your statements.')
 			redirect(URL('index', args=study.id))
 		elif f.errors:
 			response.flash=T('Form has Errors')
@@ -388,7 +382,7 @@ def final_sort():
 
 		sorted_ans = db((db.q_answer.participant == participant) & (db.q_answer.ranking != None)).select(orderby=db.q_answer.ranking)
 		sorted_ans_ids = [a.id for a in sorted_ans]
-		sort_form = FORM(INPUT(_id='rank_list', _name='rank_list', _type='hidden'), INPUT(_type='submit'))
+		sort_form = FORM(INPUT(_id='rank_list', _name='rank_list', _type='hidden'), INPUT(_type='submit', _value=T("I'm Done!")))
 		if sort_form.process().accepted:
 			new_order_list = sort_form.vars.rank_list.replace('ans[]=','').split('&')
 			new_order_list = map(int, new_order_list)
@@ -462,5 +456,5 @@ def final_sort_answer():
 def stages_complete():
 	study = db.study[request.args(0)] or redirect(URL('index'))
 	
-	completed_stage_text = T('You have completed all available study stages. You will be notified if additional assistance is required.')
+	completed_stage_text = study.end_study_msg
 	return locals()

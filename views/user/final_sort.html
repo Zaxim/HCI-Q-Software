@@ -1,0 +1,65 @@
+{{extend 'layout.html'}}
+<style>
+table {
+    border-collapse: separate;
+    border-spacing: 1em;
+}
+
+td {
+    border:1px solid black;
+    padding-top: .5em;
+    padding-bottom: .5em;
+
+    font-size: 150%;
+    cursor: move;
+}
+</style>
+<div class="page-header">
+    <h1>Review Statement Order</h1>
+</div>
+
+<div class="row">
+<p>Please review the order below. Click and drag to reorder if necessary. When you're done, press the "I'm Done" button.</p>
+</div>
+
+<div class="container-fluid">
+<div class="row-fluid">
+    <div class="span2" style="text-align: center;">
+
+        <p style="font-size:90%;">More Agree</p>
+        <div class="arrow-up"></div>
+        <div class="rectangle"></div>
+        <div class="rectangle"></div>
+        <div class="rectangle"></div>
+        <div class="arrow-down"></div>
+        <p style="font-size:90%;">Less Agree</p>
+    </div>
+    <div class="span10">
+
+<table id="sortbody">
+	{{for s in reversed(sorted_ans):}}
+		{{=TR(s.qstatement.description, _id='ans-' + str(s.id))}}
+	{{pass}}
+</table>
+
+{{=sort_form}}
+</div>
+
+<script type="text/javascript">
+
+    $("#sortbody").sortable({
+        items: "tr",
+        cursor: 'move',
+        opacity: 0.6,
+
+        stop: function (event, ui) {
+            var data = $(this).sortable('serialize');
+        	$("#rank_list").val(data);
+        },
+    });
+
+    $(document).ready(function() {
+        var data = $("#sortbody").sortable('serialize');
+        $("#rank_list").val(data);
+    });
+</script>

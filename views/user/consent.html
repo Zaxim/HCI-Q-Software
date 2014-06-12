@@ -1,0 +1,9 @@
+{{extend 'layout.html'}}
+<div class="page-header pagination-centered">
+	<h1>Consent Form</h1>
+</div>
+
+<div class="row pagination-centered">
+	{{=XML(consent_text)}}
+	{{=cform}}
+</div>

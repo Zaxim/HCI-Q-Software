@@ -7,6 +7,7 @@ db.define_table('study',
 	Field('num_questions', 'integer', requires=IS_INT_IN_RANGE(0,501)),
 	Field('box_size', 'integer', requires=IS_INT_IN_RANGE(0,501)),
 	Field('feedback_questions', 'integer', requires=IS_INT_IN_RANGE(0,501)),
+	Field('end_study_msg', 'text', widget = ckeditor.widget),
 	Field('study_stage', requires=IS_IN_SET(stages), default='Initial'),
 	format='%(name)s')
 

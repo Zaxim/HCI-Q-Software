@@ -1,11 +1,21 @@
 {{extend 'layout.html'}}
-{{=A(T("Return to studies"), _href=URL('user','index'), _class='btn')}}
-<p>
-{{=T('Statement number: ')}} {{=len(qstatements)+1}} / {{=study.num_questions}}
+<div class="row">
+	<div class="span2 offset10">
+		{{=A(T("Return to Home"), _href=URL('user','index'), _class='btn')}}
+	</div>
+</div>
 
-{{=DIV(T('Please submit an answer based on the following prompt.'))}}
-<p>
-{{=DIV(qprompt.description)}}
-{{=f}}
+<div class="row">
+	<div class="span12">
+		<p>{{=T('Statement number: ')}} {{=len(qstatements)+1}} / {{=study.num_questions}}</p>
+		{{=P(T('Please submit an answer based on the following prompt:'))}}
+	</div>
+</div>
+<hr>
 
-{{pass}}
+<div class="row">
+	<div class="span12">
+		{{=P(qprompt.description)}}
+		{{=f}}
+	</div>
+</div>

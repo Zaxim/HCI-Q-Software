@@ -1,0 +1,19 @@
+{{extend 'layout.html'}}
+<div class="row">
+	<div class="span2 offset10">
+		{{=A(T("Return to studies"), _href=URL('user','index'), _class='btn')}}
+	</div>
+</div>
+<hr>
+
+<div class="row">
+	<div class="span12">
+		{{=P(T('Please review your answers, edit if necessary, and press the submit button'))}}
+	</div>
+</div>
+
+<div class="row">
+	<div class="span12">
+		{{=f}}
+	</div>
+</div>

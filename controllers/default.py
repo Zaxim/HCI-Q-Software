@@ -18,7 +18,9 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Welcome to HCI-Q Software!!")
+
+    if (auth.is_logged_in()) and (not auth.has_membership('admin')):
+        redirect(URL('user','index'))
     return dict(message=T('Hello World'))
 
 
@@ -77,4 +79,11 @@ def data():
 
 def contact():
     contact_text = T("If you have any questions or concerns, please email us at...")
+    return locals()
+
+def about():
+
+    return locals()
+
+def license():
     return locals()

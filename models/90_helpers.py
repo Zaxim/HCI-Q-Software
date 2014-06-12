@@ -1,6 +1,6 @@
 import random
 
-def get_random_alias(gender="Male"):
+def get_random_alias(gender=random.choice(['Male', 'Female', 'Neutral'])):
 	"""
 	Returns a random participant_alias, retries until it picks an alias not already used
 	"""

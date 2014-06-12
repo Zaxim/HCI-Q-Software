@@ -115,11 +115,12 @@ def add_study():
 
 def participant():
 	"""Returns the participant associated with the participant ID or redirects back the list of studies"""
-	participant_id = db.participant(request.args(0)) or redirect (URL('studies'))
+	participant = db.participant(request.args(0)) or redirect (URL('studies'))
+
 	db.participant.id.readable = False
 	db.participant.id.writeable = False
-	participant_form = SQLFORM(db.participant, participant_id, deletable=True)
-	participant_form.add_button("Cancel", URL('admin','study', args=participant_id.study))
+	participant_form = SQLFORM(db.participant, participant, deletable=True)
+	participant_form.add_button("Cancel", URL('admin','study', args=participant.study))
 	if participant_form.process().accepted:
 		response.flash=T('Form Accepted')
 	elif participant_form.errors:

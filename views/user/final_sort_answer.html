@@ -1,0 +1,28 @@
+{{extend 'layout.html'}}
+
+<div class="page-header">
+    <h1>Statement Feedback</h1>
+</div>
+
+<div class="row">
+	<div class="span2 offset10">
+		{{=A(T("Return to studies"), _href=URL('user','index'), _class='btn')}}
+	</div>
+</div>
+
+<div class="row">
+<div class="span10">
+<p>{{=q_statement.description}}</p>
+</div>
+</div>
+
+<div class="row">
+<div class="span12">
+{{=P(T('Is one of your most ') + prompt + T(' ranked statements'))}}
+</div>
+<div class="span12">
+{{=P(T('Please explain why you rated this statement the way you did.'))}}
+</div>
+</div>
+
+{{=f}}

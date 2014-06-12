@@ -1,0 +1,72 @@
+{{extend 'layout.html'}}
+<style>
+table {
+    border-collapse: separate;
+    border-spacing: 1em;
+}
+td.disable{
+    cursor:default;
+    color: white;
+    background-color: black;
+    opacity:0.7;
+}
+
+td {
+    border:1px solid black;
+    padding-top: .5em;
+    padding-bottom: .5em;
+
+    font-size: 150%;
+    cursor: move;
+}
+
+
+</style>
+<div class="page-header">
+    <h1>Order Statements</h1>
+</div>
+<div class="row">
+<p>Please reorder the white box below</p>
+</div>
+<div class="container-fluid">
+<div class="row-fluid">
+    <div class="span2" style="text-align: center;">
+
+        <p style="font-size:90%;">More Agree</p>
+        <div class="arrow-up"></div>
+        <div class="rectangle"></div>
+        <div class="arrow-down"></div>
+        <p style="font-size:90%;">Less Agree</p>
+    </div>
+    <div class="span10">
+            <table id="sortbody" style="border-collapse: separate;">
+             {{for s in reversed(sort_list):}}
+             {{=TR(TD(s.qstatement.description, _class='disable'), _class='disable')}}
+             {{pass}}
+             {{=TR(ans_to_sort.qstatement.description)}}
+         </table>
+         {{=sort_form}}
+     </div>
+
+ </div>
+ </div>
+ 
+
+
+
+ <script type="text/javascript">
+
+    $("#sortbody").sortable({
+        items: "tr",
+        cancel: ".disable",
+        cursor: 'move',
+        opacity: 0.6,
+
+        stop: function (event, ui) {
+            $("#rank").val($("#sortbody tr").length - ui.item.index() - 1);
+        },
+    });
+
+</script>
+
+

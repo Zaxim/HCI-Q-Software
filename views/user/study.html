@@ -1,16 +1,35 @@
 {{extend 'layout.html'}}
 
-{{=A(T("Back"), _href=URL('user','index'), _class='btn')}}
+<div class="page-header">
+	<h1>{{=study.name}}</h1>
+</div>
 
-<h2>{{=study.name}}</h2>
-{{=XML(study.description)}}
-{{=A(T("Continue Study"), _href=URL('user','collect', args=study.id), _class='btn')}}
+<div class="row">
+	<div class="span3">
+		{{=A(T("Continue Study"), _href=URL('user','collect', args=study.id), _class='btn')}}
+	</div>
+	<div class="span9">
+		{{=XML(study.description)}}
+	</div>
+</div>
 
-<div id="consent" style="visibility": hidden><h3>Consent Form</h3>{{=XML(study.consent_form)}}</div>
-<button class="button" onclick="$('#consent').toggle(300);">{{=XML('Show/Hide Consent Form')}}</button>
+<hr>
 
-<h3>{{=T('Alias')}}</h3>
-<h4>{{=A(participant.participant_alias.alias_name, _href='http://starwars.wikia.com/wiki/'+participant.participant_alias.alias_name, _target='_blank')}}</h4>
-{{=change_study_alias}}
+<div class="row">
+	<div class="span3">
+		<button class="button" onclick="$('#consent').toggle(300);">{{=XML('Show/Hide Consent Form')}}</button>
+	</div>
+	<div class="span9">
+		<div id="consent" style="visibility": hidden><h3>Consent Form</h3>{{=XML(study.consent_form)}}</div>
+	</div>
+</div>
 
+<hr>
 
+<div class="voffset30"/>
+
+<div class="row">
+	<div class="span3">
+		{{=A(T("Back to studies"), _href=URL('user','index'), _class='btn')}}
+	</div>
+</div>

@@ -1,0 +1,81 @@
+/*Triangle stuff*/
+
+.triangle-up {
+    width: 25%;
+    height: 0;
+    padding-left:25%;
+    padding-bottom: 25%;
+    overflow: hidden;
+}
+.triangle-up div {
+    width: 0; 
+    height: 0;
+    margin-left:-100px;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 100px solid #4679BD;
+}
+
+.triangle-down{
+    width: 25%;
+    height: 0;
+    padding-left: 25%;
+    padding-top: 25%;
+    overflow: hidden;
+}
+.triangle-down div {
+    width: 0; 
+    height: 0;
+    margin-left:-100px;
+    margin-top:-100px;
+     
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 100px solid #4679BD;
+}
+
+.rectangle-box{
+    position: relative;
+    width: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
+    overflow: hidden;
+    background: #4679BD;
+}
+.rectangle-box:before{
+    content: "";
+    display: block;
+    padding-top: 400%;
+}
+
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid black;
+    position: relative;
+    left: 20px;
+}
+
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid black;
+    position: relative;
+    left: 20px;
+}
+
+
+.rectangle {
+    width: 10px;
+    height: 90px;
+    margin-left: 10px;
+    margin-right: 0px;
+    background: black;
+    position: relative;
+    left: 20px;
+}
+/*End triangle stuff */
