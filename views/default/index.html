@@ -1,24 +1,24 @@
 {{extend 'layout.html'}}
 
 <div class="hero-unit">
-	<h1>HCI-Q Software</h1>
-	<p>HCI-Q is a design method project developed at The Information School at the University of Washington. The HCI-Q project is affiliated with the Design, Use, Build group and the Mobile Accessible Design Lab.</p>
-	<p>{{=A(IMG(_src=URL('static','images/mad.png'), _alt='Mad Logo', _height="200", _width="200"), _href='http://depts.washington.edu/madlab')}}
-{{=A(IMG(_src=URL('static','images/dub.gif'), _alt='DUB Logo', _height="200", _width="200"), _href='http://dub.washington.edu')}}
-{{=A(IMG(_src=URL('static','images/UW-logo.png'), _alt='UW Logo', _height="100", _width="100"), _href='http://www.washington.edu')}}</p>
-	<p>
-	{{=A(T("Learn more"), _href=URL('default', 'about'), _class='btn btn-primary btn-large')}}</p>
+	<h1>Qollate</h1>
+	<h2>HCI-Q Software</h2>
+	
 </div>
 
 <div class="row">
 	<div class="span6">
 	  <h2>Participants</h2>
-	  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+	  <p>Hello Participants! Thank you for joining us. Click on the button below to join a study.</p>
 	  <p>{{=A(T("Participants Click Here"), _href=URL('user','index'), _class='btn')}}</p>
 	</div>
 	<div class="span6">
 	  <h2>Researchers</h2>
-	  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-	  <p>{{=A(T("Researchers Click Here"), _href=URL('admin','index'), _class='btn')}}</p>
+	  <p>HCI-Q is a design method project developed at The Information School at the University of Washington.</p>
+	  <p>{{=A(T("Login as Researcher"), _href=URL('admin','index'), _class='btn')}} {{=A(T("Learn more"), _href=URL('default', 'about'), _class='btn btn-primary btn-large')}}</p></p>
 	</div>
 </div>
+
+	<p>{{=A(IMG(_src=URL('static','images/mad.png'), _alt='Mad Logo', _height="200", _width="200"), _href='http://depts.washington.edu/madlab')}}
+{{=A(IMG(_src=URL('static','images/dub.gif'), _alt='DUB Logo', _height="200", _width="200"), _href='http://dub.washington.edu')}}
+{{=A(IMG(_src=URL('static','images/UW-logo.png'), _alt='UW Logo', _height="100", _width="100"), _href='http://www.washington.edu')}}</p>

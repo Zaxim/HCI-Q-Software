@@ -6,5 +6,5 @@ sessions/**
 env/**
 *˜
 *.pyc
-models/00_settings.py
+models/00_secrets.py
 
