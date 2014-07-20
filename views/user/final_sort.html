@@ -38,7 +38,7 @@ td {
 
 <table id="sortbody">
 	{{for s in reversed(sorted_ans):}}
-		{{=TR(s.qstatement.description, _id='ans-' + str(s.id))}}
+		{{=TR(s.q_statement.description, _id='ans-' + str(s.id))}}
 	{{pass}}
 </table>
 

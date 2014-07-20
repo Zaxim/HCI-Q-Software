@@ -2,25 +2,22 @@
 # this file is released under public domain and you can use without limitations
 
 #########################################################################
-## This is a sample controller
-## - index is the default action of any application
-## - user is required for authentication and authorization
-## - download is for downloading files uploaded in the db (does streaming)
-## - call exposes all registered services (none by default)
+# This is a sample controller
+# - index is the default action of any application
+# - user is required for authentication and authorization
+# - download is for downloading files uploaded in the db (does streaming)
+# - call exposes all registered services (none by default)
 #########################################################################
 
 
 def index():
     """
-    example action using the internationalization operator T and flash
-    rendered by views/default/index.html or views/generic.html
-
-    if you need a simple wiki simply replace the two lines below with:
-    return auth.wiki()
+    Returns the home page of the application, otherwise it redirects to the
+    user page
     """
 
     if (auth.is_logged_in()) and (not auth.has_membership('admin')):
-        redirect(URL('user','index'))
+        redirect(URL('user', 'index'))
     return dict(message=T('Hello World'))
 
 
@@ -40,14 +37,6 @@ def user():
     to decorate functions that need access control
     """
     return dict(form=auth())
-
-@cache.action()
-def download():
-    """
-    allows downloading of uploaded files
-    http://..../[app]/default/download/[filename]
-    """
-    return response.download(request, db)
 
 
 def call():
@@ -77,13 +66,16 @@ def data():
     """
     return dict(form=crud())
 
+
 def contact():
-    contact_text = T("If you have any questions or concerns, please email us at...")
+    contact_text = T(
+        "If you have any questions or concerns, please email us at...")
     return locals()
+
 
 def about():
-
     return locals()
+
 
 def license():
     return locals()

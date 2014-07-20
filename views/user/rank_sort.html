@@ -41,9 +41,9 @@ td {
     <div class="span10">
             <table id="sortbody" style="border-collapse: separate;">
              {{for s in reversed(sort_list):}}
-             {{=TR(TD(s.qstatement.description, _class='disable'), _class='disable')}}
+             {{=TR(TD(s.q_statement.description, _class='disable'), _class='disable')}}
              {{pass}}
-             {{=TR(ans_to_sort.qstatement.description)}}
+             {{=TR(ans_to_sort.q_statement.description)}}
          </table>
          {{=sort_form}}
      </div>

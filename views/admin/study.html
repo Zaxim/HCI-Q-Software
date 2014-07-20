@@ -11,7 +11,10 @@
 {{=study_form}}
 
 <h3>{{=T('Study Q Statement Prompts')}}</h3>
+<button class="button" onclick="$('#prompts').toggle(300);">{{=XML('Show/Hide Prompts')}}</button>
+<div id="prompts" style="visibility": hidden>
 {{=f}}
+</div>
 
 
 <h3>{{=T('Study Participants')}}</h3>
@@ -35,7 +38,9 @@
 {{pass}}
 
 
-{{=A(T("View Q Statements"), _href=URL('admin','modify_qstatements', args=request.args(0)), _class='btn')}}
+{{=A(T("View Q Solicitations"), _href=URL('admin','modify_q_solicitations', args=request.args(0)), _class='btn')}}
+
+{{=A(T("View Q Statements"), _href=URL('admin','modify_q_statements', args=request.args(0)), _class='btn')}}
 {{#=response.toolbar()}}
 
 <script type="text/javascript">
