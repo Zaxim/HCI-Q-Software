@@ -208,8 +208,10 @@ def sort():
         # Retrieve q_statements that have not been boxed before
         unboxed = db((db.q_statement.study == study) & (
             ~db.q_statement.id.belongs(q_list))).select()
+        #PEP8 complains about is vs ==, in this case the DAL defines its own
+        #equality op
         unsorted = db((db.q_answer.participant == participant) & (
-            db.q_answer.ranking is None)).select()
+            db.q_answer.ranking == None)).select()
 
         if participant.is_sort_complete:
             redirect(URL('final_sort_answer', args=study.id))
@@ -304,9 +306,9 @@ def rank_sort():
             redirect(URL('box_sort', args=request.args(0)))
 
         unsorted = db((db.q_answer.participant == participant) & (
-            db.q_answer.ranking is None)).select()
+            db.q_answer.ranking == None)).select()
         sorted_ans = db((db.q_answer.participant == participant) & (
-            db.q_answer.ranking is not None)).select(orderby=db.q_answer.ranking)
+            db.q_answer.ranking != None)).select(orderby=db.q_answer.ranking)
 
         # HACK: probably more effecient to only iterate over unsorted list once
         unsorted_agree = [a for a in unsorted if a.box == 'Agree']
@@ -424,7 +426,7 @@ def final_sort():
 
         # Ensure that all statements have been sorted
         unsorted = db((db.q_answer.participant == participant) & (
-            db.q_answer.ranking is None)).select()
+            db.q_answer.ranking == None)).select()
         if len(unsorted) > 0:
             redirect(URL('rank_sort', args=request.args(0)))
 

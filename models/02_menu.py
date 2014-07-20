@@ -7,7 +7,7 @@
 
 response.logo = A(B('Qollate'),
                   _class="brand", _href=URL('default', 'index'))
-response.title = 'Qollatee'
+response.title = 'Qollate'
 response.subtitle = 'HCI-Q Software'
 
 ## read more at http://dev.w3.org/html5/markup/meta.name.html

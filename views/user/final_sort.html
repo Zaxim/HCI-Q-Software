@@ -13,6 +13,11 @@ td {
     font-size: 150%;
     cursor: move;
 }
+
+/*div.pos_fixed {
+    position: fixed;
+    left: 15%;
+}*/
 </style>
 <div class="page-header">
     <h1>Review Statement Order</h1>
@@ -24,7 +29,7 @@ td {
 
 <div class="container-fluid">
 <div class="row-fluid">
-    <div class="span2" style="text-align: center;">
+    <div class="pos_fixed span2">
 
         <p style="font-size:90%;">More Agree</p>
         <div class="arrow-up"></div>
@@ -34,16 +39,15 @@ td {
         <div class="arrow-down"></div>
         <p style="font-size:90%;">Less Agree</p>
     </div>
+    
     <div class="span10">
-
-<table id="sortbody">
-	{{for s in reversed(sorted_ans):}}
-		{{=TR(s.q_statement.description, _id='ans-' + str(s.id))}}
-	{{pass}}
-</table>
-
-{{=sort_form}}
-</div>
+        <table id="sortbody">
+        	{{for s in reversed(sorted_ans):}}
+        		{{=TR(s.q_statement.description, _id='ans-' + str(s.id))}}
+        	{{pass}}
+        </table>
+        {{=sort_form}}
+    </div>
 
 <script type="text/javascript">
 

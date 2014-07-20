@@ -163,7 +163,7 @@ def modify_q_solicitations():
         for id in ids:
             q_solicitation = db(db.q_solicitation.id == id).select().first()
             db.q_statement.insert(study=q_solicitation.study, description=q_solicitation.description)
-            session.flash = T("Solicitations copied to Statements")
+        session.flash = T("Solicitations copied to Statements")
     
     grid = SQLFORM.grid(query, args=[study.id], selectable=[('Copy to Q-Statements', lambda ids: add_qstatements(ids))])
     return locals()
@@ -172,5 +172,11 @@ def modify_q_solicitations():
 def modify_q_statements():
     study = db.study(request.args(0)) or redirect(URL('studies'))
     query = (db.q_statement.study == study)
-    grid = SQLFORM.grid(query, args=[study.id])
+
+    def del_qstatements(ids):
+        for id in ids:
+            db(db.q_statement.id ==id).delete()
+        session.flash = T("Q Statements deleted")
+    
+    grid = SQLFORM.grid(query, args=[study.id], selectable=[('Delete', lambda ids: del_qstatements(ids))])
     return locals()
