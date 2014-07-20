@@ -31,7 +31,7 @@ def get_db(pool_size=10):
     name = os.environ['DB_STRING']
     if name:
         db = DAL(name, pool_size=pool_size)
-        session.connect(current.request, current.response, db=db)
+        session.connect(request, response, db=db)
     else:
         db = DAL('sqlite://storage.sqlite')
     return db
