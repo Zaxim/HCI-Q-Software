@@ -62,6 +62,7 @@
 <link rel="stylesheet" href="{{=URL('static','css/jquery-ui.css')}}" type="text/css" media="all" />
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script> -->
 <script src="{{=URL('static','js/jquery-ui.min.js')}}" type="text/javascript"></script>
+<script src="{{=URL('static','js/jquery-ui.touch-punch.min.js')}}" type="text/javascript"></script>
 
   <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
   {{block head}}{{end}}
@@ -132,7 +133,6 @@
     'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
   });</script>
   {{pass}}
-  <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
 </body>
 </html>
 

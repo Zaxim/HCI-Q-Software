@@ -2,23 +2,33 @@
 
 <div class="hero-unit">
 	<h1>Qollate</h1>
-	<h2>HCI-Q Software</h2>
-	
+	<h2>Measure opinions for system design</h2>
 </div>
 
 <div class="row">
 	<div class="span6">
-	  <h2>Participants</h2>
-	  <p>Hello Participants! Thank you for joining us. Click on the button below to join a study.</p>
-	  <p>{{=A(T("Participants Click Here"), _href=URL('user','index'), _class='btn btn-primary btn-large')}}</p>
+		<p>Qollate was developed at the University of Washington. {{=A(T("Find out more."), _href=URL('default', 'about'))}}</p>
 	</div>
-	<div class="span6">
-	  <h2>Researchers</h2>
-	  <p>HCI-Q is a design method project developed at the Information School at the University of Washington.</p>
-	  <p>{{=A(T("Login as Researcher"), _href=URL('admin','index'), _class='btn')}} {{=A(T("Learn more"), _href=URL('default', 'about'), _class='btn')}}</p></p>
+</div>
 
+<div class="row voffset30">
+	<div class="span6">
+		{{=A(T("Participants Click Here"), _href=URL('user','index'), _class='btn btn-primary btn-large')}}
+	</div>
+</div>
+
+<div class="row voffset30">
+	<div class="span6">
+		<p>Researchers click {{=A(T("here"), _href=URL('admin','index'), _class='btn')}}</p>
+	</div>
+</div>
+
+<div class="row voffset30">
+	<div class="span12">
 	  <p>{{=A(IMG(_src=URL('static','images/mad.png'), _alt='Mad Logo', _height="200", _width="200"), _href='http://depts.washington.edu/madlab')}}
 		{{=A(IMG(_src=URL('static','images/dub.gif'), _alt='DUB Logo', _height="200", _width="200"), _href='http://dub.washington.edu')}}
 		{{=A(IMG(_src=URL('static','images/UW-logo.png'), _alt='UW Logo', _height="100", _width="100"), _href='http://www.washington.edu')}}</p>
 	</div>
 </div>
+
+<script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
