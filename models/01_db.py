@@ -28,9 +28,8 @@ import os
 
 
 def get_db(pool_size=10):
-    name = os.environ['DB_STRING']
-    if name:
-        db = DAL(name, pool_size=pool_size)
+    if os.environ.has_key('DB_STRING'):
+        db = DAL(os.environ['DB_STRING'], pool_size=pool_size)
         session.connect(request, response, db=db)
     else:
         db = DAL('sqlite://storage.sqlite')
