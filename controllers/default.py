@@ -68,8 +68,6 @@ def data():
 
 
 def contact():
-    contact_text = T(
-        "If you have any questions or concerns, please email us at...")
     return locals()
 
 

@@ -35,7 +35,7 @@ db.define_table('q_solicitation',
                 Field('participant', 'reference participant'),
                 Field('study', 'reference study'),
                 Field('q_prompt', 'reference q_prompt'),
-                Field('description', 'text', notnull=True),
+                Field('description', 'text', notnull=True, requires=IS_LENGTH(1000)),
                 format='%(description)s'
                 )
 

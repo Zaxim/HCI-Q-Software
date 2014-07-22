@@ -10,18 +10,17 @@
 	</div>
 </div>
 
+
+
 <div class="row">
-<div class="span10">
-<p>{{=q_statement.description}}</p>
+<div class="span12">
+{{=P(T("Please explain why you strongly ") + prompt + T(" with this statement"))}}
 </div>
 </div>
 
 <div class="row">
-<div class="span12">
-{{=P(T('Is one of your most ') + prompt + T(' ranked statements'))}}
-</div>
-<div class="span12">
-{{=P(T('Please explain why you rated this statement the way you did.'))}}
+<div class="span10">
+<p>{{=q_statement.description}}</p>
 </div>
 </div>
 

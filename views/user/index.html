@@ -7,16 +7,14 @@
 </div>
 
 <div class="span12">
-	<p>{{=T("Here are a list of studies that you are participating in:")}}</p>
-</div>
-
-<div class="span12">
 	{{if len(studies) == 0:}}
-	<p>{{=T("You are not associated with any active studies now.")}}</p>
+	<p>{{=T("Thank you for registering! We are adding you to the study. You will receive an email shortly.")}}</p>
 	<p>{{=T("For any questions please ")}}
 	{{=A("Contact Us", _href=URL('default', 'contact'))}}</p>
-	{{pass}}
-
+	{{else:}}
+	<div class="span12">
+	<p>{{=T("Here are a list of studies that you are participating in:")}}</p>
+</div>
 	<table>
 		{{for study in studies:}}
 		<tr>
@@ -24,4 +22,5 @@
 		</tr>
 		{{pass}}
 	</table>
+	{{pass}}
 </div>

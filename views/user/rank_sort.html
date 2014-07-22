@@ -26,24 +26,32 @@ td {
     <h1>Order Statements</h1>
 </div>
 <div class="row">
-<p>Please reorder the white box below</p>
+<h2>{{=pile_text}}</h2>
+<p>{{=instructions}}</p>
 </div>
 <div class="container-fluid">
 <div class="row-fluid">
     <div class="span2" style="text-align: center;">
 
-        <p style="font-size:90%;">More Agree</p>
+        <p style="font-size:90%;">Most Agree</p>
         <div class="arrow-up"></div>
         <div class="rectangle"></div>
         <div class="arrow-down"></div>
-        <p style="font-size:90%;">Less Agree</p>
+        <p style="font-size:90%;">Most Disagree</p>
     </div>
     <div class="span10">
             <table id="sortbody" style="border-collapse: separate;">
+             {{if not is_agree:}}
+             {{=TR(ans_to_sort.q_statement.description)}}
+             {{pass}}
+
              {{for s in reversed(sort_list):}}
              {{=TR(TD(s.q_statement.description, _class='disable'), _class='disable')}}
              {{pass}}
+             
+             {{if is_agree:}}
              {{=TR(ans_to_sort.q_statement.description)}}
+             {{pass}}
          </table>
          {{=sort_form}}
      </div>

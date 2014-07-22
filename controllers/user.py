@@ -175,8 +175,9 @@ def edit_solicit():
                         # Do we need to add a delete function?
                     else:
                         response.flash = T("Error in updating statements")
+            participant.update_record(study_stage='Sorting')
             session.flash = T("Thank you for submitting your statements.")
-            redirect(URL('index', args=study.id))
+            redirect(URL('collect', args=study.id))
         elif f.errors:
             response.flash = T("Form has Errors")
     else:
@@ -354,9 +355,15 @@ def rank_sort():
 
         elif (len(unsorted_agree) > 0) or (len(unsorted_disagree) > 0):
             if len(unsorted_agree) > 0:
+                is_agree = True
+                instructions= T("Drag the statement at the bottom to move it to any position in the list. Moving a statement to a higher position in the list means that you AGREE more with that statement.")
+                pile_text = T("Agree Pile")
                 ans_to_sort = unsorted_agree[0]
                 sorted_list = sorted_agree
             elif len(unsorted_disagree) > 0:
+                is_agree = False
+                instructions = T("Drag the statement at the top to move it to any position in the list. Moving a statement to a lower position in the list means that you DISAGREE more with that statement.")
+                pile_text = T("Disagree Pile")
                 ans_to_sort = unsorted_disagree[0]
                 sorted_list = sorted_disagree
 
@@ -365,8 +372,14 @@ def rank_sort():
                 redirect(URL('collect', args=study.id))
 
             sort_list = pick_order_list(sorted_list)
+
+            if not is_agree:
+                start_val = len(sort_list)
+            else:
+                start_val = 0
+
             sort_form = FORM(
-                INPUT(_id='rank', _name='rank', value=0,
+                INPUT(_id='rank', _name='rank', value=start_val,
                       requires=IS_IN_SET(range(0, len(sort_list) + 1)),
                       _type='hidden'), INPUT(_type='submit', _value='Submit'))
 
@@ -476,13 +489,13 @@ def final_sort_answer():
 
         if (len(q_feedback_pos) < study.feedback_questions) or (len(q_feedback_neg) < study.feedback_questions):
             if len(q_feedback_pos) < study.feedback_questions:
-                prompt = T('positively')
+                prompt = T('AGREE')
                 q_answer = sorted_ans[len(q_feedback_pos)]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Agree'
 
             elif len(q_feedback_neg) < study.feedback_questions:
-                prompt = T('negatively')
+                prompt = T('DISAGREE')
                 q_answer = sorted_ans[-len(q_feedback_neg) - 1]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Disagree'

@@ -5,22 +5,14 @@
 </div>
 
 <div class="row">
-	<div class="span3">
-		{{=A(T("Continue Study"), _href=URL('user','collect', args=study.id), _class='btn')}}
-	</div>
-	<div class="span9">
+	<div class="span6">
 		{{=XML(study.description)}}
 	</div>
 </div>
 
-<hr>
-
 <div class="row">
 	<div class="span3">
-		<button class="button" onclick="$('#consent').toggle(300);">{{=XML('Show/Hide Consent Form')}}</button>
-	</div>
-	<div class="span9">
-		<div id="consent" style="visibility": hidden><h3>Consent Form</h3>{{=XML(study.consent_form)}}</div>
+		{{=A(T("Enter Study"), _href=URL('user','collect', args=study.id), _class='btn')}}
 	</div>
 </div>
 
