@@ -26,6 +26,7 @@
 	{{pass}}
 </table>
 
+{{=A(T("Email Participants"), _href=URL('admin','email_participants', args=request.args(0)), _class='btn')}}
 
 <h3>{{=T('Add study participants')}}</h3>
 {{=add_user_form}}

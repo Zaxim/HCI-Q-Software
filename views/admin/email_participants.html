@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+<h2>{{=T('Email Participants')}}</h2>
+{{=email_form}}
+
+<table>
+	{{for a in auth_users:}}
+	<tr>
+		<td>{{=A(a.email, _href="mailto:" + a.email)}}</td>
+	</tr>
+	{{pass}}
+</table>

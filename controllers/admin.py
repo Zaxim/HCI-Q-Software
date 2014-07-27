@@ -109,6 +109,7 @@ def study():
                     user_id = auth.get_or_create_user(
                         {'email': em, 'password': password})
                     new_users.append(user_id)
+                    auth.email_reset_password(user_id)
                 if user_id not in p_list:
                     db.participant.insert(participant_alias=get_random_alias(
                     ), auth_user=user_id, study=study_id, study_stage='Consenting')
@@ -148,9 +149,22 @@ def participant():
     participant_form = SQLFORM(db.participant, participant, deletable=True)
     participant_form.add_button(
         "Cancel", URL('admin', 'study', args=participant.study))
+
+    email_form = SQLFORM.factory(
+        Field('subject'),
+        Field('email_body', 'text', widget=ckeditor.widget)
+        )
+
     if participant_form.process().accepted:
         response.flash = T("Form Accepted")
     elif participant_form.errors:
+        response.flash = T("Form has Errors")
+
+    if email_form.process().accepted:
+        mail.send(a.email, email_form.vars.subject, "<html>" + email_form.vars.email_body + "</html>")
+        session.flash = T("Email Sent")
+        redirect(URL('study', args=participant.study))
+    elif email_form.errors:
         response.flash = T("Form has Errors")
     return locals()
 
@@ -164,7 +178,7 @@ def modify_q_solicitations():
             q_solicitation = db(db.q_solicitation.id == id).select().first()
             db.q_statement.insert(study=q_solicitation.study, description=q_solicitation.description)
         session.flash = T("Solicitations copied to Statements")
-    
+
     grid = SQLFORM.grid(query, args=[study.id], selectable=[('Copy to Q-Statements', lambda ids: add_qstatements(ids))])
     return locals()
 
@@ -175,8 +189,30 @@ def modify_q_statements():
 
     def del_qstatements(ids):
         for id in ids:
-            db(db.q_statement.id ==id).delete()
+            db(db.q_statement.id == id).delete()
         session.flash = T("Q Statements deleted")
-    
+
     grid = SQLFORM.grid(query, args=[study.id], selectable=[('Delete', lambda ids: del_qstatements(ids))])
+    return locals()
+
+
+def email_participants():
+    study = db.study(request.args(0)) or redirect(URL('studies'))
+    participants = db(db.participant.study == study.id).select()
+    auth_users = [p.auth_user for p in participants]
+
+    email_form = SQLFORM.factory(
+        Field('subject'),
+        Field('email_body', 'text', widget=ckeditor.widget)
+        )
+
+    if email_form.process().accepted:
+        for a in auth_users:
+            mail.send(a.email, email_form.vars.subject, "<html>" + email_form.vars.email_body + "</html>")
+
+        session.flash = T("Email Sent")
+        redirect(URL('study', args=study_id.id))
+    elif email_form.errors:
+        response.flash = T("Form has Errors")
+
     return locals()
