@@ -15,14 +15,12 @@ db.define_table('study',
                 )
 
 db.define_table('participant',
-                Field('participant_alias', 'reference participant_alias',
-                      unique=True),
                 Field('auth_user', 'reference auth_user'),
                 Field('study', 'reference study'),
                 Field('study_stage', requires=IS_IN_SET(stages)),
                 Field('is_unsuitable', 'boolean', default=False),
                 Field('is_sort_complete', 'boolean', default=False),
-                format=lambda r: r.participant_alias.alias_name
+                format='Participant %(id)s'
                 )
 
 db.define_table('q_prompt',

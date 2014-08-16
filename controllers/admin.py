@@ -1,7 +1,6 @@
 
-#Uncomment in production
-# if not auth.has_membership('admin'):
-#	redirect(auth.settings.login_url)
+if not auth.has_membership('admin'):
+    redirect(auth.settings.login_url)
 
 
 def index():
@@ -38,7 +37,6 @@ def study():
         orderby=~db.q_prompt.id)
     db.q_prompt.study.default = study_id
     study = db(db.study.id == study_id).select().first()
-    unanswered_num = study.num_questions - len(q_prompts)
     field_list = []
     for i, q in enumerate(q_prompts):
         # Hack to add q_prompt ID to Field
@@ -78,8 +76,7 @@ def study():
         user_list_id, labels=user_list_label, multiple=True)), table_name="no_table_add_user")
     if add_user_form.process().accepted:
         for user_id in add_user_form.vars.Users:
-            db.participant.insert(participant_alias=get_random_alias(
-            ), auth_user=user_id, study=study_id, study_stage='Consenting')
+            db.participant.insert(auth_user=user_id, study=study_id, study_stage='Consenting')
         session.flash = T("Study Updated")
         redirect(URL('study', args=study_id.id), client_side=True)
     elif add_user_form.errors:
@@ -111,8 +108,7 @@ def study():
                     new_users.append(user_id)
                     auth.email_reset_password(user_id)
                 if user_id not in p_list:
-                    db.participant.insert(participant_alias=get_random_alias(
-                    ), auth_user=user_id, study=study_id, study_stage='Consenting')
+                    db.participant.insert(auth_user=user_id, study=study_id, study_stage='Consenting')
         session.flash = T(
             "Study Updated\nThe following emails were not added\n" + str(invalid_emails))
         redirect(URL('study', args=study_id.id), client_side=True)
@@ -143,6 +139,7 @@ def participant():
     back the list of studies
     """
     participant = db.participant(request.args(0)) or redirect(URL('studies'))
+    user = db.auth_user(participant.auth_user)
 
     db.participant.id.readable = False
     db.participant.id.writeable = False
@@ -161,7 +158,7 @@ def participant():
         response.flash = T("Form has Errors")
 
     if email_form.process().accepted:
-        mail.send(a.email, email_form.vars.subject, "<html>" + email_form.vars.email_body + "</html>")
+        mail.send(user.email, email_form.vars.subject, "<html>" + email_form.vars.email_body + "</html>")
         session.flash = T("Email Sent")
         redirect(URL('study', args=participant.study))
     elif email_form.errors:
@@ -211,7 +208,7 @@ def email_participants():
             mail.send(a.email, email_form.vars.subject, "<html>" + email_form.vars.email_body + "</html>")
 
         session.flash = T("Email Sent")
-        redirect(URL('study', args=study_id.id))
+        redirect(URL('study', args=study.id))
     elif email_form.errors:
         response.flash = T("Form has Errors")
 

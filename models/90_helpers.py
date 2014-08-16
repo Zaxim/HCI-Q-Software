@@ -1,19 +1,3 @@
-import random
-
-
-def get_random_alias(gender=random.choice(['Male', 'Female', 'Neutral'])):
-    """
-    Returns a random participant_alias, retries until it picks an alias not
-    already used
-    """
-    while True:
-        random_record = db(db.participant_alias.gender == gender).select(
-            db.participant_alias.ALL, orderby='<random>', limitby=(0, 1))[0]
-        if not db(db.participant.participant_alias == random_record.id).select():
-            break
-
-    return random_record
-
 
 def is_in_study(study_id):
     """

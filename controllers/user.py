@@ -356,13 +356,13 @@ def rank_sort():
         elif (len(unsorted_agree) > 0) or (len(unsorted_disagree) > 0):
             if len(unsorted_agree) > 0:
                 is_agree = True
-                instructions= T("Drag the statement at the bottom to move it to any position in the list. Moving a statement to a higher position in the list means that you AGREE more with that statement.")
+                instructions= T("Drag the bottom statement UP if you AGREE MORE with it. If you drag it to the top, it means that you AGREE MOST with that statement.")
                 pile_text = T("Agree Pile")
                 ans_to_sort = unsorted_agree[0]
                 sorted_list = sorted_agree
             elif len(unsorted_disagree) > 0:
                 is_agree = False
-                instructions = T("Drag the statement at the top to move it to any position in the list. Moving a statement to a lower position in the list means that you DISAGREE more with that statement.")
+                instructions = T("Drag the top statement DOWN if you DISAGREE MORE with it. If you drag it to the bottom, it means that you DISAGREE MOST with that statement.")
                 pile_text = T("Disagree Pile")
                 ans_to_sort = unsorted_disagree[0]
                 sorted_list = sorted_disagree
