@@ -357,13 +357,13 @@ def rank_sort():
             if len(unsorted_agree) > 0:
                 is_agree = True
                 instructions= T("Drag the bottom statement UP if you think that technology would be MORE USEFUL for that statement. If you drag it to the top, it means that you think technology would be MOST USEFUL for that statement.")
-                pile_text = T("Use Technology Pile")
+                pile_text = T("\"I think technology would be useful\"")
                 ans_to_sort = unsorted_agree[0]
                 sorted_list = sorted_agree
             elif len(unsorted_disagree) > 0:
                 is_agree = False
                 instructions = T("Drag the top statement DOWN if you think that technology is MORE USELESS for that statement. If you drag it to the bottom, it means that you think technology is MOST USELESS for that statement.")
-                pile_text = T("Avoid Technology Pile")
+                pile_text = T("\"I think technology should be avoided\"")
                 ans_to_sort = unsorted_disagree[0]
                 sorted_list = sorted_disagree
 
