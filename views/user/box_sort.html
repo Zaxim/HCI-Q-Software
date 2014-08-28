@@ -1,12 +1,17 @@
 {{extend 'layout.html'}}
 <div class="page-header text-center">
-	<h1>Sort</h1>
+	<h1>Indicate If You Would Use or Avoid Technology</h1>
 </div>
 
 <div class="row text-center">
 	<div class="span8 offset2">
-		<p class="text-center">{{=T("Please read each statement. Indicate your opinion by clicking one of the buttons:  Technology would be useless (Avoid Technology), Technology would be useful (Use Technology), or Neither (Neutral/Not Sure):")}}</p>
+		<p class="text-center">{{=T("Instructions: Read the statement below. Indicate your opinion by clicking one of the three buttons below the statement. The button definitions are as follows:")}}</p>
+		{{=UL(T("Avoid technology = Technology would be undesirable, problematic, or useless."), T("Neutral/Not Sure = It is unclear whether technology should be avoided or used."), T("Use Technology = Technology would be desirable, beneficial, or useful."))}}
 
+		<div class="voffset30"/>
+</div>
+
+<div class="row text-center">
 		<p class="text-center" style="font-size:200%; line-height:120%">{{=q_statement_to_answer.description}}</p>
 		<div class="voffset30"/>
 		{{=box_form}}

@@ -77,8 +77,8 @@ def consent():
         redirect(URL('collect', args=study.id))
 
     if participant.study_stage == "Consenting":
-        cform = FORM.confirm(T("I agree to the study"), {
-                             T("I DO NOT agree to the study"): URL('default', 'contact')})
+        cform = FORM.confirm(T("I agree to participate"), {
+                             T("I DO NOT agree to participate"): URL('default', 'contact')})
         consent_text = study.consent_form
         if cform.accepted:
             participant.update_record(study_stage='Soliciting')
@@ -489,13 +489,13 @@ def final_sort_answer():
 
         if (len(q_feedback_pos) < study.feedback_questions) or (len(q_feedback_neg) < study.feedback_questions):
             if len(q_feedback_pos) < study.feedback_questions:
-                prompt = T('MOST USEFUL')
+                prompt = T("How do you imagine technology being used")
                 q_answer = sorted_ans[len(q_feedback_pos)]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Agree'
 
             elif len(q_feedback_neg) < study.feedback_questions:
-                prompt = T('MOST USELESS')
+                prompt = T("Why would you avoid using technology")
                 q_answer = sorted_ans[-len(q_feedback_neg) - 1]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Disagree'

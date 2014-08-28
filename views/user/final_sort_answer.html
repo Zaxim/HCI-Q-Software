@@ -4,23 +4,17 @@
     <h1>Statement Feedback</h1>
 </div>
 
-<div class="row">
-	<div class="span2 offset10">
-		{{=A(T("Return to studies"), _href=URL('user','index'), _class='btn')}}
-	</div>
-</div>
-
 
 
 <div class="row">
 <div class="span12">
-{{=T("What would happen if technology was used in this situation?")}}
+{{=I(prompt, T(" for the following purpose?"))}}
 </div>
 </div>
-
+<div class="voffset30"/>
 <div class="row">
 <div class="span10">
-<p>{{=q_statement.description}}</p>
+<p style="font-size:200%; line-height:120%">{{=q_statement.description}}</p>
 </div>
 </div>
 
