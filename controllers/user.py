@@ -255,9 +255,9 @@ def box_sort():
             ~db.q_statement.id.belongs(q_list))).select(orderby='<random>')
         if len(unboxed) > 0:
             q_statement_to_answer = unboxed[0]
-            box_form = FORM(INPUT(_type='submit', _name='disagree', _value='Avoid Technology'),
+            box_form = FORM(INPUT(_type='submit', _name='disagree', _value='Disagree'),
                             INPUT(_type='submit', _name='neutral', _value='Neutral/Not Sure'),
-                            INPUT(_type='submit', _name='agree', _value='Use Technology'),
+                            INPUT(_type='submit', _name='agree', _value='Agree'),
                             INPUT(_name='qid', _type='hidden', _value=q_statement_to_answer.id))
             if box_form.process().accepted:
                 # Ensure that Q statement ID is part of the set
@@ -356,13 +356,13 @@ def rank_sort():
         elif (len(unsorted_agree) > 0) or (len(unsorted_disagree) > 0):
             if len(unsorted_agree) > 0:
                 is_agree = True
-                instructions= T("Drag the bottom statement UP if you think that technology would be MORE useful, desirable, or beneficial.")
+                instructions= T("Drag the bottom statement UP if you AGREE MORE with that statement.")
                 pile_text = T("\"I think technology would be useful\"")
                 ans_to_sort = unsorted_agree[0]
                 sorted_list = sorted_agree
             elif len(unsorted_disagree) > 0:
                 is_agree = False
-                instructions = T("Drag the top statement DOWN if you think that technology would be MORE useless, undesirable, or problematic.")
+                instructions = T("Drag the top statement DOWN if you DISAGREE MORE with that statement.")
                 pile_text = T("\"I think technology should be avoided\"")
                 ans_to_sort = unsorted_disagree[0]
                 sorted_list = sorted_disagree
@@ -489,13 +489,13 @@ def final_sort_answer():
 
         if (len(q_feedback_pos) < study.feedback_questions) or (len(q_feedback_neg) < study.feedback_questions):
             if len(q_feedback_pos) < study.feedback_questions:
-                prompt = T("How do you imagine technology being used")
+                prompt = T("We are interested in your opinion about the statements that you most strongly AGREED with. Why did you strongly agree with the following statement?")
                 q_answer = sorted_ans[len(q_feedback_pos)]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Agree'
 
             elif len(q_feedback_neg) < study.feedback_questions:
-                prompt = T("Why would you avoid using technology")
+                prompt = T("We are interested in your opinion about the statements that you most strongly DISAGREED with. Why did you strongly disagree with the following statement?")
                 q_answer = sorted_ans[-len(q_feedback_neg) - 1]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Disagree'
