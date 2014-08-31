@@ -489,13 +489,13 @@ def final_sort_answer():
 
         if (len(q_feedback_pos) < study.feedback_questions) or (len(q_feedback_neg) < study.feedback_questions):
             if len(q_feedback_pos) < study.feedback_questions:
-                prompt = T("We are interested in your opinion about the statements that you most strongly AGREED with. Why did you strongly agree with the following statement?")
+                prompt = XML("We are interested in your opinion about the " + str(study.feedback_questions) + " statements that you most strongly AGREED with. " + str(I("How do you imagine technology being used for the following purpose?")))
                 q_answer = sorted_ans[len(q_feedback_pos)]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Agree'
 
             elif len(q_feedback_neg) < study.feedback_questions:
-                prompt = T("We are interested in your opinion about the statements that you most strongly DISAGREED with. Why did you strongly disagree with the following statement?")
+                prompt = XML("We are interested in your opinion about the " + str(study.feedback_questions) + " statements that you most strongly DISAGREED with. " + str(I("Why would you avoid using technology for the following purpose?")))
                 q_answer = sorted_ans[-len(q_feedback_neg) - 1]
                 q_statement_id = q_answer.q_statement
                 db.q_feedback.box.default = 'Disagree'
